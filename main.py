@@ -99,8 +99,8 @@ def main():
         print("New version found!")
         write_version_file(VERSION_FILE, filename)
         send_email_notification(
-            subject="New Smokeball Version Available",
-            body=f"A new version of Smokeball is available: {filename}\nDownload it here: {url}",
+            subject="New Remarkable Version Available",
+            body=f"A new version of Remarkable is available: {filename}\nDownload it here: {url}",
             to_email=os.getenv("TO_EMAIL"),
             from_email=os.getenv("FROM_EMAIL"),
             smtp_server=os.getenv("SMTP_SERVER"),
