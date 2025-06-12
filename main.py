@@ -2,8 +2,11 @@ import os
 import requests
 import re
 import smtplib
+from dotenv import load_dotenv
 from email.message import EmailMessage
 from urllib.parse import urljoin, urlparse
+
+load_dotenv()
 
 WEB_URL = "https://downloads.remarkable.com/latest/windows"
 VERSION_FILE = "version.txt"
@@ -24,14 +27,17 @@ def send_email_notification(
     msg["Subject"] = subject
     msg["From"] = from_email
     msg["To"] = to_email
+    print(
+        f"Sending email to {to_email} from {from_email} via {smtp_server}:{smtp_port}"
+    )
 
     try:
 
         with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.ehlo()
             server.starttls()
             server.login(smtp_user, smtp_password)
             server.send_message(msg)
+            server.quit()
     except smtplib.SMTPException as e:
         print(f"Failed to send email: {e}")
 
